@@ -8,11 +8,6 @@ var rp;
 var path = require('path');
 var redis = config.redis;
 
-if (process.platform === 'win32') {
-    // TODO: Fix redis process spawn on windows
-    return;
-}
-
 describe('master slave sync', function () {
     var master = null;
     var slave = null;

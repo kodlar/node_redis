@@ -11,8 +11,6 @@ var bluebird = require('bluebird');
 // wait for redis to be listening in
 // all three modes (ipv4, ipv6, socket).
 function waitForRedis (available, cb, port) {
-    if (process.platform === 'win32') return cb();
-
     var time = Date.now();
     var running = false;
     var socket = '/tmp/redis.sock';
@@ -29,7 +27,7 @@ function waitForRedis (available, cb, port) {
             tcpPortUsed.check(port, '::1'),
         function (ipV4, ipV6) {
             if (ipV6 === available && ipV4 === available) {
-                if (fs.existsSync(socket) === available) {
+                if (fs.existsSync(socket) === available || process.platform === 'win32') {
                     clearInterval(id);
                     return cb();
                 }

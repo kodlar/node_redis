@@ -5,11 +5,6 @@ var config = require("./lib/config");
 var helper = require('./helper');
 var redis = config.redis;
 
-if (process.platform === 'win32') {
-    // TODO: Fix redis process spawn on windows
-    return;
-}
-
 describe("rename commands", function () {
     before(function (done) {
         helper.stopRedis(function () {
